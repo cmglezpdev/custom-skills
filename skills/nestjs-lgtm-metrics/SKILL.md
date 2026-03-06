@@ -1,5 +1,5 @@
 ---
-name: nestjs-app-metrics
+name: nestjs-lgtm-metrics
 description: Add application-level Prometheus metrics to a NestJS app using the OpenTelemetry SDK and an OTel Collector. Covers HTTP RED metrics, Node.js runtime metrics, business metrics, and advanced observability patterns. Use this skill whenever the user wants to add metrics, dashboards, or monitoring to a NestJS application, mentions Prometheus, Grafana metrics, OpenTelemetry metrics, OTel Collector, or asks about SLIs/SLOs, or application-level monitoring in a NestJS context. Also trigger when the user wants custom counters, histograms, gauges, or summaries in NestJS. This skill focuses exclusively on metrics the APPLICATION must emit. It does not cover logging, tracing, infra-level metrics from cAdvisor, node-exporter, postgres-exporter, or redis-exporter.
 ---
 
@@ -41,6 +41,7 @@ Each stage builds on the previous. Read the corresponding reference file for ful
 Non-negotiable. Every NestJS app in production needs these from the start.
 
 **What you get:**
+
 1. **HTTP RED metrics** (Rate, Errors, Duration) via a global interceptor
    - `http_request_duration_seconds` histogram, labeled by method, route, status_code
    - `http_requests_total` counter, labeled by method, route, status_code
@@ -67,6 +68,7 @@ Non-negotiable. Every NestJS app in production needs these from the start.
 These metrics expose application behavior that sits between raw HTTP and business logic.
 
 **What you get:**
+
 1. **Database query metrics from the app's perspective**
    - `app_db_query_duration_seconds` histogram by operation (select, insert, update, delete), entity
    - `app_db_query_errors_total` counter by operation, error_type
@@ -104,6 +106,7 @@ These metrics expose application behavior that sits between raw HTTP and busines
 Once users arrive, technical metrics aren't enough. You need to observe the business through the same system.
 
 **What you get:**
+
 1. **User lifecycle events**
    - `app_user_signups_total` counter by source, plan
    - `app_user_logins_total` counter by method
@@ -133,6 +136,7 @@ Once users arrive, technical metrics aren't enough. You need to observe the busi
 For apps serving real traffic at scale, handling complex flows, or needing tight operational control.
 
 **What you get:**
+
 1. **WebSocket / real-time connection metrics**
    - `app_ws_connections_active` gauge by namespace
    - `app_ws_messages_total` counter by namespace, direction (in/out), event_type
@@ -177,12 +181,14 @@ Each dashboard is standalone. Combine panels across dashboards as your needs evo
 Read `references/grafana-dashboards.md` for dashboard panel definitions and provisioning.
 
 **Dashboard hierarchy:**
+
 1. **Service Overview** (Stage 1): RED metrics, runtime health, up/down status. One dashboard per service.
 2. **Dependency Health** (Stage 2): DB latency, Redis hit rates, external API status. Shows how your app EXPERIENCES its dependencies.
 3. **Business Dashboard** (Stage 3): Conversion funnels, feature adoption, revenue metrics. Non-engineers should be able to read this.
 4. **Operational Dashboard** (Stage 4): Rate limits, circuit breakers, tenant resource usage, deployment comparison.
 
 **Alert hierarchy** (pair with dashboards):
+
 - Stage 1: Error rate spike, latency P99 breach, event loop lag > 100ms
 - Stage 2: DB query latency drift, cache hit rate drop, external API circuit open
 - Stage 3: Conversion rate drop, signup anomaly

@@ -1,5 +1,5 @@
 ---
-name: docs
+name: daramex-monorepo-docs
 description: >
   How to create, update, and manage documentation in the DaraMex Monorepo VitePress docs app (apps/docs/).
   Use this skill whenever the user asks to add documentation, update docs, create a runbook, write an ADR,
